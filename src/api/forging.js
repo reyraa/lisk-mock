@@ -3,11 +3,10 @@ import readFile from '../lib/read-file';
 
 export default () => resource({
 
-    id : 'delegates',
+    id : 'forging',
 
     /** GET / - List all entities */
     index({ query }, res) {
-        console.log('publicKey', query);
         let response;
         let status;
         // define response and status
@@ -23,7 +22,7 @@ export default () => resource({
             status = 404;
         }
         console.log('D status', status, query);
-        readFile('delegates', status, (err, data) => {
+        readFile('delegates-forging', status, (err, data) => {
             res.status(status);
             response = data;
             res.json(response);

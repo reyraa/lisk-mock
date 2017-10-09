@@ -1,0 +1,16 @@
+{
+    "address": "16313739661670634666L",
+    "username": "isabella",
+    "weight": 1000000100,
+    "votes": 2,
+    "voters": [
+      {
+        "address": "6251001604903637008L",
+        "balance": 1000000000
+      },
+      {
+        "address": "12668885769632475474L",
+        "balance": 100
+      }
+    ]
+  }

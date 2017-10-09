@@ -1,27 +1,47 @@
-[
+{
+  "accounts": [
     {
-      "address": "12668885769632475474L",
-      "balance": "1081560729258",
-      "unconfirmedBalance": "0",
-      "publicKey": "968ba2fa993ea9dc27ed740da0daf49eddd740dbd7cb1cb4fc5db3a20baf341b",
-      "secondPublicKey": "null",
+      "address": "16313739661670634666L",
+      "balance": 1081560729258,
+      "unconfirmedBalance": 0,
+      "publicKey": "c094ebee7ec0c50ebee32918655e089f6e1a604b83bcaa760293c61e0f18ab6f",
+      "secondPublicKey": null,
       "delegate": {
         "username": "isabella",
-        "vote": 0,
+        "vote": 1081560729258,
+        "rewards": 510000000,
         "producedBlocks": 20131,
         "missedBlocks": 427,
         "rate": 91,
-        "approval": "14.22",
-        "productivity": "96.41"
+        "approval": 14.22,
+        "productivity": 96.41
       },
-      "multisignatures": {
+      "multisignatureMaster": {
         "min": 2,
         "lifetime": 72,
         "signers": [
-          "968ba2fa993ea9dc27ed740da0daf49eddd740dbd7cb1cb4fc5db3a20baf341b",
-          "64e338fdd912945858994ba38ba123895f6200e14064248ca4682f2a601df1fc",
-          "9f76d9ab6cd1c56ed6af0a12053d8d179793516815dbf6962437291a90472cf3"
+          {
+            "address": "6251001604903637008L",
+            "publicKey": "2ca9a7143fc721fdc540fef893b27e8d648d2288efa61e56264edf01a2c23079"
+          },
+          {
+            "address": "12668885769632475474L",
+            "publicKey": "a4465fd76c16fcc458448076372abf1912cc5b150663a64dffefe550f96feadd"
+          },
+          {
+            "address": "12668123452434343274L",
+            "publicKey": "a233323232235677777754465fd76c16fcc434222663a64dffefe550f96feadd"
+          }
         ]
-      }
+      },
+      "multisignatureMember": [
+        {
+          "min": 2,
+          "lifetime": 72,
+          "masterAddress": "6251001604903637008L",
+          "masterPublicKey": "2ca9a7143fc721fdc540fef893b27e8d648d2288efa61e56264edf01a2c23079"
+        }
+      ]
     }
   ]
+}
