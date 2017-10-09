@@ -1,0 +1,27 @@
+[
+    {
+      "address": "12668885769632475474L",
+      "balance": "1081560729258",
+      "unconfirmedBalance": "0",
+      "publicKey": "968ba2fa993ea9dc27ed740da0daf49eddd740dbd7cb1cb4fc5db3a20baf341b",
+      "secondPublicKey": "null",
+      "delegate": {
+        "username": "isabella",
+        "vote": 0,
+        "producedBlocks": 20131,
+        "missedBlocks": 427,
+        "rate": 91,
+        "approval": "14.22",
+        "productivity": "96.41"
+      },
+      "multisignatures": {
+        "min": 2,
+        "lifetime": 72,
+        "signers": [
+          "968ba2fa993ea9dc27ed740da0daf49eddd740dbd7cb1cb4fc5db3a20baf341b",
+          "64e338fdd912945858994ba38ba123895f6200e14064248ca4682f2a601df1fc",
+          "9f76d9ab6cd1c56ed6af0a12053d8d179793516815dbf6962437291a90472cf3"
+        ]
+      }
+    }
+  ]

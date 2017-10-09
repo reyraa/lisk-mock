@@ -1,0 +1,15 @@
+{
+    "delegates": [
+      {
+        "username": "isabella",
+        "address": "12668885769632475474L",
+        "publicKey": "968ba2fa993ea9dc27ed740da0daf49eddd740dbd7cb1cb4fc5db3a20baf341b",
+        "vote": 1081560729258,
+        "producedBlocks": 20131,
+        "missedBlocks": 427,
+        "rate": 91,
+        "approval": 14.22,
+        "productivity": 96.41
+      }
+    ]
+  }
