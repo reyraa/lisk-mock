@@ -1,8 +1,8 @@
 import fs from 'fs';
 import path from 'path';
 
-export default (route, status, cb) => {
-    let reqPath = path.join(__dirname, `../db/${route}/${status}.json`);
+export default (status, cb) => {
+    let reqPath = path.join(__dirname, `../error/${status}.json`);
     fs.readFile(reqPath , 'utf8', function (err, data) {
         //Handle Error
        if(!err) {

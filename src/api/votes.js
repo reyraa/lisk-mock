@@ -1,5 +1,6 @@
 import resource from 'resource-router-middleware';
-import readFile from '../lib/read-file';
+import readError from '../lib/read-error';
+import Vote from '../models/vote';
 
 export default () => resource({
 
@@ -7,10 +8,13 @@ export default () => resource({
 
     /** GET / - List all entities */
     index({ query }, res) {
-        let response;
         let status;
+        const knownIds = [
+            'c094ebee7ec0c50ebee32918655e089f6e1a604b83bcaa760293c61e0f18ab0f',
+            'c094ebee7ec0c50ebee32918655e089f6e1a604b83bcaa760293c61e0f18ab6f'
+        ];
         // define response and status
-        if (query.publicKey === 'c094ebee7ec0c50ebee32918655e089f6e1a604b83bcaa760293c61e0f18ab6f') {
+        if (knownIds.includes(query.publicKey)) {
             status = 200;
         } else if (query.publicKey == undefined) {
             status = 400;
@@ -21,11 +25,14 @@ export default () => resource({
         } else {
             status = 404;
         }
-        console.log('V status', status, query);
-        readFile('votes', status, (err, data) => {
-            res.status(status);
-            response = data;
-            res.json(response);
-        });
+
+        res.status(status);
+        if (status === 200) {
+            res.json(Vote(0));
+        } else {
+            readError(status, (err, data) => {
+                res.json(data);
+            });
+        }
     },
 });

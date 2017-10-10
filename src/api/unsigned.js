@@ -1,5 +1,6 @@
 import resource from 'resource-router-middleware';
-import readFile from '../lib/read-file';
+import readError from '../lib/read-error';
+import Forging from '../models/forging';
 
 export default () => resource({
 
@@ -7,7 +8,6 @@ export default () => resource({
 
     /** GET / - List all entities */
     index({ query }, res) {
-        let response;
         let status;
         // define response and status
         if (query.publicKey === 'c094ebee7ec0c50ebee32918655e089f6e1a604b83bcaa760293c61e0f18ab6f') {
@@ -21,11 +21,14 @@ export default () => resource({
         } else {
             status = 404;
         }
-        console.log('T/u status', status, query);
-        readFile('transactions-unsigned', status, (err, data) => {
-            res.status(status);
-            response = data;
-            res.json(response);
-        });
+
+        res.status(status);
+        if (status === 200) {
+            res.json(Forging(0));
+        } else {
+            readError(status, (err, data) => {
+                res.json(data);
+            });
+        }
     },
 });

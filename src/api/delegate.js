@@ -1,5 +1,6 @@
 import resource from 'resource-router-middleware';
-import readFile from '../lib/read-file';
+import readError from '../lib/read-error';
+import Delegate from '../models/delegate';
 
 export default () => resource({
 
@@ -7,8 +8,6 @@ export default () => resource({
 
     /** GET / - List all entities */
     index({ query }, res) {
-        console.log('publicKey', query);
-        let response;
         let status;
         // define response and status
         if (query.publicKey === 'c094ebee7ec0c50ebee32918655e089f6e1a604b83bcaa760293c61e0f18ab6f') {
@@ -22,11 +21,15 @@ export default () => resource({
         } else {
             status = 404;
         }
-        console.log('D status', status, query);
-        readFile('delegates', status, (err, data) => {
-            res.status(status);
-            response = data;
+
+        res.status(status);
+        if (status === 200) {
+            const response = { delegates: [Delegate(0)] };
             res.json(response);
-        });
+        } else {
+            readError(status, (err, data) => {
+                res.json(data);
+            });
+        }
     },
 });

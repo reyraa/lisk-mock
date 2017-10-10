@@ -1,5 +1,6 @@
 import resource from 'resource-router-middleware';
-import readFile from '../lib/read-file';
+import readError from '../lib/read-error';
+import Transaction from '../models/transaction';
 
 export default () => resource({
 
@@ -7,35 +8,46 @@ export default () => resource({
 
     /** GET / - List all entities */
     index({ query }, res) {
-        let response;
         let status;
-        let file;
+        let renderIndex;
+        let recipientIndex;
+        const knownIds = [
+            '1631373966167063460L',
+            '16313739661670634666L',
+        ];
         // define response and status
-        if (query.senderId === '16313739661670634666L') {
+        if (knownIds.includes(query.senderId)) {
             status = 200;
-            file = '200-sender';
-        } else if (query.recipientId === '16313739661670634666L') {
+            renderIndex = 0;
+            recipientIndex = 1;
+        } else if (knownIds.includes(query.recipientId)) {
             status = 200;
-            file = '200-recipient';
-        } else if (query.senderId == undefined && query.recipientId == undefined) {
-            status = 400;
-            file = '200-sender';
+            renderIndex = 1;
+            recipientIndex = 0;
         } else if (query.senderId === '999999999L' || query.recipientId === '999999999L') {
             status = 204;
-            file = status;
+        } else if (query.senderId == undefined && query.recipientId == undefined) {
+            status = 400;
+            renderIndex = 0;
+            recipientIndex = 1;
         } else if (query.senderId instanceof Array || query.senderId.constructor === Array ||
             query.recipientId instanceof Array || query.recipientId.constructor === Array) {
             status = 409;
-            file = status;
         } else {
             status = 404;
-            file = status;
         }
-        console.log('T status', file, query);
-        readFile('transactions', file, (err, data) => {
-            res.status(status);
-            response = data;
+
+        res.status(status);
+        if (status === 200) {
+            const response = {
+                transactions: [Transaction(renderIndex, recipientIndex)],
+                count: 1,
+            };
             res.json(response);
-        });
+        } else {
+            readError(status, (err, data) => {
+                res.json(data);
+            });
+        }
     },
 });
