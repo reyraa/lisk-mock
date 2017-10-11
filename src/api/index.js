@@ -5,6 +5,7 @@ import delegate from './delegate';
 import forging from './forging';
 import votes from './votes';
 import voters from './voters';
+import blocks from './blocks';
 import transactions from './transactions';
 import unsigned from './unsigned';
 
@@ -21,6 +22,7 @@ export default ({ config }) => {
     api.use('/voters', voters({ config }));
     api.use('/transactions/unsigned', unsigned({ config }));
     api.use('/transactions', transactions({ config }));
+    api.use('/blocks', blocks({ config }));
 
     // only returns Api meta data
     api.get('/', (req, res) => {

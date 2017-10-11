@@ -1,6 +1,7 @@
 import resource from 'resource-router-middleware';
 import readError from '../lib/read-error';
 import Forging from '../models/forging';
+import { knownPublicKeys } from '../lib/knowns';
 
 export default () => resource({
 
@@ -10,7 +11,7 @@ export default () => resource({
     index({ query }, res) {
         let status;
         // define response and status
-        if (query.publicKey === 'c094ebee7ec0c50ebee32918655e089f6e1a604b83bcaa760293c61e0f18ab6f') {
+        if (knownPublicKeys.includes(query.publicKey)) {
             status = 200;
         } else if (query.publicKey == undefined) {
             status = 400;
