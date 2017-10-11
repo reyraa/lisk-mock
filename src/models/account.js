@@ -5,7 +5,7 @@ export default (i) => ({
   'publicKey': `c094ebee7ec0c50ebee32918655e089f6e1a604b83bcaa760293c61e0f18ab${i}f`,
   'secondPublicKey': null,
   'delegate': {
-    'username': `user${i}`,
+    'username': `genesis_${i}`,
     'vote': 81560729258 * i,
     'rewards': 5000000 * i,
     'producedBlocks': 2013 * i,
