@@ -1,9 +1,10 @@
 import resource from 'resource-router-middleware';
 import readError from '../lib/read-error';
+import Forger from '../models/forger';
 
 export default () => resource({
 
-    id : 'nextForgers',
+    id : 'forgers',
 
     /** GET / - List all entities */
     index({ query }, res) {
@@ -14,14 +15,14 @@ export default () => resource({
         if (!query.limit || query.limit > 0) {
             status = 200;
             response = {
-                currentBlock: 28680,
+                count: limit,
                 currentBlockSlot: 4368793,
                 currentSlot: 4368793,
                 delegates: [],
             };
             limit = query.limit < 101 ? query.limit : 101;
             for (let i = 0; i < limit; i++) {
-                response.delegates.push(`c094ebee7ec0c50ebee32918655e089f6e1a604b83bcaa760293c61e0f18ab${i}f`);
+                response.delegates.push(Forger(i));
             }
         } else if (query.limit === 0) {
             status = 204;

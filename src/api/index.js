@@ -8,7 +8,7 @@ import voters from './voters';
 import blocks from './blocks';
 import transactions from './transactions';
 import unsigned from './unsigned';
-import nextForgers from './next-forgers';
+import forgers from './forgers';
 
 export default ({ config }) => {
     let api = Router();
@@ -24,7 +24,7 @@ export default ({ config }) => {
     api.use('/transactions/unsigned', unsigned({ config }));
     api.use('/transactions', transactions({ config }));
     api.use('/blocks', blocks({ config }));
-    api.use('/delegates/nextForgers', nextForgers({ config }));
+    api.use('/delegates/forgers', forgers({ config }));
 
     // only returns Api meta data
     api.get('/', (req, res) => {
