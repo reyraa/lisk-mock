@@ -12,11 +12,11 @@ export default (i) => {
         }
     }
     return ({
-        'address': `163137396616706346${i}L`,
-        'balance': `${i}00000000`,
-        'votesUsed': voteCount,
-        'votesAvailable': 100 - voteCount,
-        'votes': votes
+        address: `163137396616706346${i}L`,
+        balance: `${i}00000000`,
+        votesUsed: voteCount,
+        votesAvailable: 100 - voteCount,
+        votes: votes
       }
     );
 }

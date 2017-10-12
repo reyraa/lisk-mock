@@ -8,10 +8,10 @@ export default (i) => {
     }
 
     return ({
-        'address': `163137396616706346${i}L`,
-        'username': `genesis_${i}`,
-        'weight': 81560729258 * i,
-        'votes': 100 - i,
-        'voters': voters,
+        address: `163137396616706346${i}L`,
+        username: `genesis_${i}`,
+        weight: 81560729258 * i,
+        votes: 100 - i,
+        voters: voters,
     });
 }
