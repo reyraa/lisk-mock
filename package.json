@@ -31,19 +31,12 @@
   "author": "Ali Haghighatkhah <haghighatkhah.ali@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "bcrypt": "^1.0.2",
-    "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.13.3",
     "compression": "^1.5.2",
     "connect-flash": "^0.1.1",
     "cors": "^2.7.1",
     "express": "^4.13.3",
-    "mongodb": "^2.2.30",
-    "mongoose": "^4.11.3",
     "morgan": "^1.8.0",
-    "passport": "^0.3.2",
-    "passport-google-oauth": "^1.0.0",
-    "passport-local": "^1.0.0",
     "resource-router-middleware": "^0.6.0"
   },
   "devDependencies": {
