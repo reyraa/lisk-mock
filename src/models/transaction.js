@@ -1,7 +1,7 @@
-export default (senderIndex, recipientIndex, type) => {
+export default (senderIndex, recipientIndex, type, txId) => {
   const fees = [10000000, 500000000, 2500000000, 100000000];
   return {
-    transactionId: 15 + senderIndex * 1000 + (recipientIndex || 1) * 100 + (type || 0),
+    transactionId: txId ? txId : 15 + senderIndex * 1000 + (recipientIndex || 1) * 100 + (type || 0),
     amount: 1000000 * (senderIndex + 1),
     fee: 10000000,
     type: fees[type || 0],

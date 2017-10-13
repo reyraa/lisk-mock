@@ -7,7 +7,8 @@ import votes from './votes';
 import voters from './voters';
 import blocks from './blocks';
 import transactions from './transactions';
-import unsigned from './unsigned';
+import unsigned from './unsigned-tx';
+import unconfirmed from './unconfirmed-tx';
 import forgers from './forgers';
 
 export default ({ config }) => {
@@ -22,6 +23,7 @@ export default ({ config }) => {
     api.use('/votes', votes({ config }));
     api.use('/voters', voters({ config }));
     api.use('/transactions/unsigned', unsigned({ config }));
+    api.use('/transactions/unconfirmed', unconfirmed({ config }));
     api.use('/transactions', transactions({ config }));
     api.use('/blocks', blocks({ config }));
     api.use('/delegates/forgers', forgers({ config }));

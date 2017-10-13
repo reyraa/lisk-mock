@@ -1,11 +1,11 @@
 import resource from 'resource-router-middleware';
 import readError from '../lib/read-error';
-import Transaction from '../models/transaction';
+import UnconfirmedTx from '../models/unconfirmedTx';
 import { knownAddresses } from '../lib/knowns';
 
 export default () => resource({
 
-    id : 'transactions',
+    id : 'unconfirmedTx',
 
     /** GET / - List all entities */
     index({ query }, res) {
@@ -13,38 +13,21 @@ export default () => resource({
         let response;
         // define response and status
         if (typeof query.id === 'string' && query.id.length > 10) {
-            console.log('GOT');
             status = 200;
             response = {
-                transactions: [Transaction(0, 1, null, query.id)],
+                transactions: UnconfirmedTx(0, query.id),
                 count: 1,
             };
-        } else if (knownAddresses.includes(query.senderId)) {
+        } else if (Object.keys(query).length === 0) {
             status = 200;
-            response = {
-                transactions: [Transaction(0, 1)],
-                count: 1,
-            };
-        } else if (knownAddresses.includes(query.recipientId)) {
-            status = 200;
-            response = {
-                transactions: [Transaction(1, 0)],
-                count: 1,
-            };
-        // registration transactions
-        } else if (query.sort === 'timestamp:desc') {
-            status = 200;
-            const count = 20;
-            const transactionList = [];
-            for (let i = 0; i < count; i++) {
-                transactionList.push(Transaction(i, null, query.type));
+            const transactions = [];
+            for (let i = 0; i < 10; i++) {
+                transactions.push(UnconfirmedTx(i));
             }
             response = {
-                transactions: transactionList,
-                count,
+                transactions,
+                count: 10,
             };
-        } else if (query.senderId === '999999999L' || query.recipientId === '999999999L') {
-            status = 204;
         } else if (query.senderId == undefined && query.recipientId == undefined) {
             status = 400;
         } else if (query.senderId instanceof Array || query.senderId.constructor === Array ||
