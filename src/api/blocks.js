@@ -10,24 +10,29 @@ export default () => resource({
     /** GET / - List all entities */
     index({ query }, res) {
         let status;
-        let offset;
-        let limit;
         let response;
         // define response and status
-        if (query.sort === 'height:desc' && query.publicKey !== 'invalid_pk') {
+        if (typeof query.height === 'string' && query.height > 0) {
+            status = 200;
+            response = { blocks: [Block({ height: query.height, i: 0 })], count: 1 };
+        } else if (typeof query.blockId === 'string' && query.blockId.length > 10) {
+            status = 200;
+            response = { blocks: [Block({ blockId: query.blockId })], count: 1 };
+        } else if (query.sort === 'height:desc') {
             status = 200;
             const limit = query.limit || 1;
+            const offset = query.offset || 0;
             const blockList = [];
-            for (let i = 0; i < limit; i++) {
-                blockList.push(Block(i, query.generatorPublicKey));
+            for (let i = offset; i < (parseInt(limit) + parseInt(offset)); i++) {
+                blockList.push(Block({ i, publicKey: query.publicKey }));
             }
-            response = { blocks: blockList };
+            response = { blocks: blockList, count: limit };
             // getting top accounts
-        } else if (query.address === '999999999L' || query.publicKey === 'ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff') {
+        } else if (query.blockId === '9999999999') {
             status = 204;
-        } else if ((query.address === 'L' || query.address == undefined) && (query.publicKey === 'invalid_pk' || query.publicKey == undefined)) {
+        } else if (query.blockId === 'invalid_blockId' || query.blockId == undefined) {
             status = 400;
-        } else if (query.address instanceof Array || query.address.constructor === Array) {
+        } else if (query.blockId instanceof Array || query.blockId.constructor === Array) {
             status = 409;
         } else {
             status = 404;
