@@ -14,7 +14,7 @@ export default (options) => {
     blockId = 6258354802676166000 + (1000 * options.i)
   }
 
-  
+  const rand = Math.floor(1000 * Math.random());
   return {
     blockId: blockId,
     height: options.height ? options.height :  10815 + options.i,
@@ -28,8 +28,8 @@ export default (options) => {
     previousBlockId: 6258354802676166000 + (1000 * options.i) - 1,
     forged: {
       numberOfTransactions: 15,
-      totalAmount: 150000000,
-      totalFee: 15000000,
+      totalAmount: 150000000 + (rand * 10),
+      totalFee: 15000000 + rand,
       reward: 50000000,
       totalForged: 65000000
     }

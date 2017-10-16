@@ -11,6 +11,7 @@ import transactions from './transactions';
 import unsigned from './unsigned-tx';
 import unconfirmed from './unconfirmed-tx';
 import forgers from './forgers';
+import peers from './peers';
 
 export default ({ config }) => {
     let api = Router();
@@ -29,6 +30,7 @@ export default ({ config }) => {
     api.use('/transactions/unconfirmed', unconfirmed({ config }));
     api.use('/blocks', blocks({ config }));
     api.use('/blocks/status', blocksStatus({ config }));
+    api.use('/peers', peers({ config }));
 
     // only returns Api meta data
     api.get('/', (req, res) => {

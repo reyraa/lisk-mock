@@ -5,6 +5,7 @@ import morgan from 'morgan';
 import bodyParser from 'body-parser';
 import flash from 'connect-flash';
 import api from './api';
+import freegeoip from './freegeoip';
 import config from './config/general.json';
 
 let app = express();
@@ -27,6 +28,7 @@ app.use(bodyParser.json({
 app.use(flash());
 
 // api router
+app.use('/freegeoip', freegeoip({ config }));
 app.use('/', api({ config }));
 
 app.server.listen(process.env.PORT || config.port, () => {
