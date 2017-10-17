@@ -3,6 +3,8 @@ import readError from '../lib/read-error';
 import Block from '../models/block';
 import { knownPublicKeys, knownAddresses } from '../lib/knowns';
 
+const addressRegex = /^[0-9]{15,21}[L]$/;
+
 export default () => resource({
 
     id : 'block',
@@ -12,10 +14,10 @@ export default () => resource({
         let status;
         let response;
         // define response and status
-        if (typeof query.height === 'string' && query.height > 0) {
+        if (typeof query.height === 'string' && query.height > 0 && !addressRegex.test(query.height)) {
             status = 200;
             response = { blocks: [Block({ height: query.height, i: 0 })], count: 1 };
-        } else if (typeof query.blockId === 'string' && query.blockId.length > 10) {
+        } else if (typeof query.blockId === 'string' && query.blockId.length > 10 && !addressRegex.test(query.blockId)) {
             status = 200;
             response = { blocks: [Block({ blockId: query.blockId })], count: 1 };
         } else if (query.sort === 'height:desc') {
@@ -28,7 +30,7 @@ export default () => resource({
             }
             response = { blocks: blockList, count: limit };
             // getting top accounts
-        } else if (query.blockId === '9999999999') {
+        } else if (typeof query.blockId === 'string' || typeof query.height === 'string') {
             status = 204;
         } else if (query.blockId === 'invalid_blockId' || query.blockId == undefined) {
             status = 400;

@@ -3,6 +3,8 @@ import readError from '../lib/read-error';
 import UnconfirmedTx from '../models/unconfirmedTx';
 import { knownAddresses } from '../lib/knowns';
 
+const addressRegex = /^[0-9]{10,21}[L]$/;
+
 export default () => resource({
 
     id : 'unconfirmedTx',
@@ -12,7 +14,7 @@ export default () => resource({
         let status;
         let response;
         // define response and status
-        if (typeof query.id === 'string' && query.id.length > 10) {
+        if (typeof query.id === 'string' && query.id.length > 10 && !addressRegex.test(query.id)) {
             status = 200;
             response = {
                 transactions: UnconfirmedTx(0, query.id),
@@ -28,6 +30,8 @@ export default () => resource({
                 transactions,
                 count: 10,
             };
+        } else if (typeof query.id === 'string') {
+            status = 204;
         } else if (query.senderId == undefined && query.recipientId == undefined) {
             status = 400;
         } else if (query.senderId instanceof Array || query.senderId.constructor === Array ||

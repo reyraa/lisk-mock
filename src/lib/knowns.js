@@ -1,6 +1,7 @@
 export const knownAddresses = [
     '1631373966167063460L',
     '16313739661670634666L',
+    '8273455169423958419L',
 ];
 
 export const knownPublicKeys = [

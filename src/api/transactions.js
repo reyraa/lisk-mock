@@ -3,6 +3,8 @@ import readError from '../lib/read-error';
 import Transaction from '../models/transaction';
 import { knownAddresses } from '../lib/knowns';
 
+const addressRegex = /^[0-9]{10,21}[L]$/;
+
 export default () => resource({
 
     id : 'transactions',
@@ -12,7 +14,7 @@ export default () => resource({
         let status;
         let response;
         // define response and status
-        if (typeof query.id === 'string' && query.id.length > 10) {
+        if (typeof query.id === 'string' && query.id.length > 10 && !addressRegex.test(query.id)) {
             console.log('GOT');
             status = 200;
             response = {
@@ -43,7 +45,7 @@ export default () => resource({
                 transactions: transactionList,
                 count,
             };
-        } else if (query.senderId === '999999999L' || query.recipientId === '999999999L') {
+        } else if (query.senderId === '999999999L' || query.recipientId === '999999999L' || typeof query.id === 'string') {
             status = 204;
         } else if (query.senderId == undefined && query.recipientId == undefined) {
             status = 400;
