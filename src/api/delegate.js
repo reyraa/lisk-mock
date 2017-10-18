@@ -4,20 +4,42 @@ import Delegate from '../models/delegate';
 import { knownPublicKeys } from '../lib/knowns';
 
 
-const createDelegateList = (pk, address, q, limit) => {
+/**
+ * @param {*} pk publicKey
+ * @param {*} address Address
+ * @param {*} q Query for search
+ * @param {*} limit The maximum number of delegates returned
+ */
+const createDelegateList = (pk, address, q, limit, offset) => {
     let count = 303;
-    if (pk || address) {
+    const delegateList = [];
+    if (pk) {
         limit = limit || 101;
         count = 1;
+        let givenIdParts;
+        if (address) {
+            givenIdParts = address.replace('L', '').split('6346');
+        } else {
+            givenIdParts = pk.replace(/f$/, '').split('0f18ab');
+        }
+        const i = givenIdParts.length === 2 ? givenIdParts[0] : 0;
+        delegateList.push(Delegate(i, q));
     } else if (q && q.length > 0) {
-        console.log(q, 13 - q.length)
         limit = 10 - q.length;
         count = limit;
+        for (let i = 0; i < limit; i++) {
+            delegateList.push(Delegate(i, q));
+        }
+    } else {
+        limit = limit | 101;
+        offset = offset | 0;
+        const max = parseInt(limit) + parseInt(offset);
+
+        for (let i = offset; i < max; i++) {
+            delegateList.push(Delegate(i));
+        }
     }
-    const delegateList = [];
-    for (let i = 0; i < limit; i++) {
-        delegateList.push(Delegate(i, q));
-    }
+
     return { delegates: delegateList, count };
 }
 
@@ -44,7 +66,7 @@ export default () => resource({
             }
         } else if (query.sort === 'rate:asc') {
             status = 200;
-            response = createDelegateList(null, null, null, query.limit);
+            response = createDelegateList(null, null, null, query.limit, query.offset);
         } else if (query.publicKey == undefined) {
             status = 400;
         } else if (query.publicKey === 'invalid_pk') {

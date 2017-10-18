@@ -2,16 +2,25 @@ export default (options) => {
   let pk;
   let blockId;
   if (typeof options.blockId === 'string') {
-    options.i = options.blockId[options.blockId.length - 1];
+    options.i = parseInt(options.blockId.substr(-2));
+    console.log('from blockId', options.blockId);
+    console.log('i:', options.i);
     blockId = options.blockId;
     pk = `c094ebee7ec0c50ebee32918655e089f6e1a604b83bcaa760293c61e0f18ab${options.i}f`;
+    console.log('pk:', pk);
   } else if (typeof publicKey === 'string') {
-    options.i = options.publicKey[options.publicKey.length - 2];
+    options.i = parseInt(options.publicKey.replace(/f$/, '').split('0f18ab'));
+    console.log('from pk', options.publicKey);
+    console.log('i:', options.i);
     pk = `c094ebee7ec0c50ebee32918655e089f6e1a604b83bcaa760293c61e0f18ab${options.i}f`;
-    blockId = 6258354802676166000 + (1000 * options.i)
+    blockId = 6258354802676166000 + options.i;
+    console.log('id:', blockId);
   } else {
+    console.log('from i', options.i);
     pk = `c094ebee7ec0c50ebee32918655e089f6e1a604b83bcaa760293c61e0f18ab${options.i}f`;
-    blockId = 6258354802676166000 + (1000 * options.i)
+    console.log('pk:', pk);
+    blockId = `6258354802676166000${options.i}`;
+    console.log('blockId', blockId);
   }
 
   const rand = Math.floor(1000 * Math.random());

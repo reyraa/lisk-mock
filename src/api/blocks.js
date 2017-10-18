@@ -25,7 +25,9 @@ export default () => resource({
             const limit = query.limit || 1;
             const offset = query.offset || 0;
             const blockList = [];
-            for (let i = offset; i < (parseInt(limit) + parseInt(offset)); i++) {
+            const max = parseInt(limit) + parseInt(offset);
+            console.log('From ', offset, ' to ', max);
+            for (let i = offset; i < max; i++) {
                 blockList.push(Block({ i, publicKey: query.publicKey }));
             }
             response = { blocks: blockList, count: limit };

@@ -3,6 +3,8 @@ import readError from '../lib/read-error';
 import Forging from '../models/forging';
 import { knownPublicKeys } from '../lib/knowns';
 
+const addressRegex = /^[0-9]{10,21}[L]$/;
+
 export default () => resource({
 
     id : 'unsigned',

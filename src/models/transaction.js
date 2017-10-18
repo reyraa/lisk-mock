@@ -3,8 +3,8 @@ export default (senderIndex, recipientIndex, type, txId) => {
   return {
     transactionId: txId ? txId : 15 + senderIndex * 1000 + (recipientIndex || 1) * 100 + (type || 0),
     amount: 1000000 * (senderIndex + 1),
-    fee: 10000000,
-    type: fees[type || 0],
+    fee: fees[type || 0],
+    type: type || 0,
     height: 123 + senderIndex,
     blockId: 6258354802676166000 + senderIndex,
     timestamp: 28217090 + 1000 * (senderIndex),

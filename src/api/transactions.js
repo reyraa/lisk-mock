@@ -15,7 +15,6 @@ export default () => resource({
         let response;
         // define response and status
         if (typeof query.id === 'string' && query.id.length > 10 && !addressRegex.test(query.id)) {
-            console.log('GOT');
             status = 200;
             response = {
                 transactions: [Transaction(0, 1, null, query.id)],
@@ -38,8 +37,10 @@ export default () => resource({
             status = 200;
             const count = 20;
             const transactionList = [];
+            let recipientIndex = null;
             for (let i = 0; i < count; i++) {
-                transactionList.push(Transaction(i, null, query.type));
+                recipientIndex = (query.type === undefined || parseInt(query.type) === 0) ? count - i : null;
+                transactionList.push(Transaction(i, recipientIndex, query.type));
             }
             response = {
                 transactions: transactionList,

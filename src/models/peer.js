@@ -7,7 +7,7 @@ export default (i) => {
     wsPort: 8000,
     version: 'v0.8.0',
     state: i%3,
-    os: 'debian',
+    os: 'linux4.9.36-x86_64-linode85',
     height: 123,
     broadhash: `258974416d58533227c6a3da1b6333f0541b06c65b41e45cf31926847a3db${i}ea`,
   }
