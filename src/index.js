@@ -6,6 +6,7 @@ import bodyParser from 'body-parser';
 import flash from 'connect-flash';
 import api from './api';
 import freegeoip from './freegeoip';
+import updater from './updater';
 import config from './config/general.json';
 
 let app = express();
@@ -29,6 +30,7 @@ app.use(flash());
 
 // api router
 app.use('/freegeoip', freegeoip({ config }));
+app.use('/updater', updater({ config }));
 app.use('/', api({ config }));
 
 app.server.listen(process.env.PORT || config.port, () => {
